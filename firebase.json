@@ -1,0 +1,43 @@
+{
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs20"
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "dhego-fb024",
+          "appId": "1:763902133969:android:f33f120f5e7f7c53cee7f0",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "dhego-fb024",
+          "configurations": {
+            "android": "1:763902133969:android:f33f120f5e7f7c53cee7f0",
+            "ios": "1:763902133969:ios:2f1cc65568471a2ecee7f0",
+            "macos": "1:763902133969:ios:2f1cc65568471a2ecee7f0",
+            "web": "1:763902133969:web:cb861f1c55454bfbcee7f0",
+            "windows": "1:763902133969:web:0b82a09034d0c419cee7f0"
+          }
+        }
+      }
+    }
+  }
+}

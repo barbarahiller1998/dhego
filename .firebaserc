@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "cmd /c firebase deploy --only functions --project dhego-fb024": "dhego-fb024"
+  },
+  "targets": {},
+  "etags": {}
+}
