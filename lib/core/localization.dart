@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String languagePreferenceKey = 'selected_language';
@@ -7,7 +7,7 @@ final ValueNotifier<AppLanguage> languageNotifier = ValueNotifier<AppLanguage>(
   AppLanguage.hr,
 );
 
-enum AppLanguage { hr, de }
+enum AppLanguage { hr, de, en }
 
 class LanguageScope extends InheritedNotifier<ValueNotifier<AppLanguage>> {
   const LanguageScope({
@@ -27,10 +27,12 @@ localizedStrings = <String, Map<AppLanguage, String>>{
   'app_title': <AppLanguage, String>{
     AppLanguage.hr: 'DHEgo - Prijava',
     AppLanguage.de: 'DHEgo - Anmeldung',
+    AppLanguage.en: 'DHEgo - Login',
   },
   'login_title': <AppLanguage, String>{
     AppLanguage.hr: 'Prijava',
     AppLanguage.de: 'Anmeldung',
+    AppLanguage.en: 'Login',
   },
   'username': <AppLanguage, String>{
     AppLanguage.hr: 'Korisničko ime',
@@ -39,35 +41,84 @@ localizedStrings = <String, Map<AppLanguage, String>>{
   'username_or_email': <AppLanguage, String>{
     AppLanguage.hr: 'Korisničko ime ili e-mail',
     AppLanguage.de: 'Benutzername oder E-Mail',
+    AppLanguage.en: 'Username or email',
   },
   'password': <AppLanguage, String>{
     AppLanguage.hr: 'Lozinka',
     AppLanguage.de: 'Passwort',
+    AppLanguage.en: 'Password',
   },
   'login_button': <AppLanguage, String>{
     AppLanguage.hr: 'Prijavi se',
     AppLanguage.de: 'Anmelden',
+    AppLanguage.en: 'Sign in',
   },
   'login_error': <AppLanguage, String>{
     AppLanguage.hr: 'Pogrešno korisničko ime ili lozinka.',
     AppLanguage.de: 'Falscher Benutzername oder falsches Passwort.',
+    AppLanguage.en: 'Incorrect username or password.',
+  },
+  'login_error_network': <AppLanguage, String>{
+    AppLanguage.hr: 'Prijava nije uspjela zbog mreže ili browser postavki.',
+    AppLanguage.de:
+        'Die Anmeldung ist wegen Netzwerk- oder Browsereinstellungen fehlgeschlagen.',
+    AppLanguage.en: 'Login failed because of network or browser settings.',
+  },
+  'login_error_storage': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Prijava nije uspjela jer browser blokira lokalnu pohranu ili kolačiće.',
+    AppLanguage.de:
+        'Die Anmeldung ist fehlgeschlagen, weil der Browser lokalen Speicher oder Cookies blockiert.',
+    AppLanguage.en:
+        'Login failed because the browser is blocking local storage or cookies.',
+  },
+  'login_error_domain': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Prijava nije uspjela jer domena nije dopuštena za Firebase prijavu.',
+    AppLanguage.de:
+        'Die Anmeldung ist fehlgeschlagen, weil die Domain für Firebase-Anmeldung nicht freigegeben ist.',
+    AppLanguage.en:
+        'Login failed because this domain is not authorized for Firebase sign-in.',
+  },
+  'login_error_disabled': <AppLanguage, String>{
+    AppLanguage.hr: 'Prijava e-mailom i lozinkom trenutno nije omogućena.',
+    AppLanguage.de:
+        'Die Anmeldung mit E-Mail und Passwort ist derzeit nicht aktiviert.',
+    AppLanguage.en: 'Email and password sign-in is not currently enabled.',
+  },
+  'login_error_rate_limit': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Previše pokušaja prijave. Pričekaj malo i pokušaj ponovno.',
+    AppLanguage.de:
+        'Zu viele Anmeldeversuche. Bitte warte kurz und versuche es erneut.',
+    AppLanguage.en: 'Too many login attempts. Please wait a bit and try again.',
   },
   'inactive_user_error': <AppLanguage, String>{
     AppLanguage.hr: 'Korisnički račun nije aktivan.',
     AppLanguage.de: 'Das Benutzerkonto ist nicht aktiv.',
+    AppLanguage.en: 'This user account is not active.',
   },
   'forgot_password': <AppLanguage, String>{
     AppLanguage.hr: 'Zaboravljena lozinka?',
     AppLanguage.de: 'Passwort vergessen?',
+    AppLanguage.en: 'Forgot password?',
   },
   'password_reset_sent': <AppLanguage, String>{
     AppLanguage.hr: 'Poslan je e-mail za promjenu lozinke.',
     AppLanguage.de: 'Die E-Mail zum Zurücksetzen des Passworts wurde gesendet.',
+    AppLanguage.en: 'Password reset email has been sent.',
   },
   'password_reset_error': <AppLanguage, String>{
     AppLanguage.hr: 'Nije moguće poslati e-mail za promjenu lozinke.',
     AppLanguage.de:
         'Die E-Mail zum Zurücksetzen des Passworts konnte nicht gesendet werden.',
+    AppLanguage.en: 'Unable to send the password reset email.',
+  },
+  'offline_login_success': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Prijava je otvorena iz spremljenih podataka. Kad se spojiš na internet, podaci će se ponovno sinkronizirati.',
+    AppLanguage.de:
+        'Die Anmeldung wurde mit gespeicherten Daten geöffnet. Sobald wieder Internet verfügbar ist, werden die Daten erneut synchronisiert.',
   },
   'initial_password': <AppLanguage, String>{
     AppLanguage.hr: 'Početna lozinka',
@@ -100,18 +151,22 @@ localizedStrings = <String, Map<AppLanguage, String>>{
   'language_label': <AppLanguage, String>{
     AppLanguage.hr: 'Jezik',
     AppLanguage.de: 'Sprache',
+    AppLanguage.en: 'Language',
   },
   'remember_me': <AppLanguage, String>{
     AppLanguage.hr: 'Zapamti me',
     AppLanguage.de: 'Angemeldet bleiben',
+    AppLanguage.en: 'Remember me',
   },
   'unlock_saved_login': <AppLanguage, String>{
     AppLanguage.hr: 'Otvori spremljenu prijavu',
     AppLanguage.de: 'Gespeicherte Anmeldung offnen',
+    AppLanguage.en: 'Open saved login',
   },
   'unlock_saved_login_subtitle': <AppLanguage, String>{
     AppLanguage.hr: 'Koristi lice, otisak ili šifru uređaja',
     AppLanguage.de: 'Nutze Gesicht, Fingerabdruck oder Geratecode',
+    AppLanguage.en: 'Use face, fingerprint or device passcode',
   },
   'biometric_reason': <AppLanguage, String>{
     AppLanguage.hr: 'Potvrdi identitet za učitavanje spremljene prijave.',
@@ -131,8 +186,8 @@ localizedStrings = <String, Map<AppLanguage, String>>{
     AppLanguage.de: 'Material bestellen',
   },
   'order_goods_subtitle': <AppLanguage, String>{
-    AppLanguage.hr: 'Pošalji narudžbu voditelju gradilišta',
-    AppLanguage.de: 'Bestellung an den Bauleiter senden',
+    AppLanguage.hr: 'Spremi narudžbu za objedinjeno slanje',
+    AppLanguage.de: 'Bestellung für gebündelten Versand speichern',
   },
   'project_selection': <AppLanguage, String>{
     AppLanguage.hr: 'Odabir projekta',
@@ -141,6 +196,41 @@ localizedStrings = <String, Map<AppLanguage, String>>{
   'project_label': <AppLanguage, String>{
     AppLanguage.hr: 'Projekt',
     AppLanguage.de: 'Projekt',
+  },
+  'project_type': <AppLanguage, String>{
+    AppLanguage.hr: 'Tip projekta',
+    AppLanguage.de: 'Projekttyp',
+  },
+  'project_type_construction': <AppLanguage, String>{
+    AppLanguage.hr: 'Gradilište',
+    AppLanguage.de: 'Baustelle',
+  },
+  'project_type_production': <AppLanguage, String>{
+    AppLanguage.hr: 'Proizvodnja',
+    AppLanguage.de: 'Produktion',
+  },
+  'production_mode_hint': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Odaberi želiš li ući po stanu ili po zadatku za ovu proizvodnju.',
+    AppLanguage.de:
+        'Wähle, ob du diese Produktion nach Wohnung oder nach Aufgabe öffnen willst.',
+  },
+  'choose_by_apartment': <AppLanguage, String>{
+    AppLanguage.hr: 'Odaberi stan',
+    AppLanguage.de: 'Wohnung wählen',
+  },
+  'choose_by_task': <AppLanguage, String>{
+    AppLanguage.hr: 'Odaberi zadatak',
+    AppLanguage.de: 'Aufgabe wählen',
+  },
+  'select_apartments_for_task': <AppLanguage, String>{
+    AppLanguage.hr: 'Označi stanove za odabrani zadatak.',
+    AppLanguage.de: 'Wähle die Wohnungen für die ausgewählte Aufgabe aus.',
+  },
+  'batch_task_completed_message': <AppLanguage, String>{
+    AppLanguage.hr: 'Zajednički je potpisano i spremljeno {count} zadataka.',
+    AppLanguage.de:
+        '{count} Aufgaben wurden gemeinsam unterschrieben und gespeichert.',
   },
   'project_selection_subtitle': <AppLanguage, String>{
     AppLanguage.hr: 'Nastavi na zgrade, stanove i registre',
@@ -191,8 +281,66 @@ localizedStrings = <String, Map<AppLanguage, String>>{
     AppLanguage.de: 'Notiz',
   },
   'send_order': <AppLanguage, String>{
-    AppLanguage.hr: 'Pošalji narudžbu mailom',
-    AppLanguage.de: 'Bestellung per E-Mail senden',
+    AppLanguage.hr: 'Spremi narudžbu',
+    AppLanguage.de: 'Bestellung speichern',
+  },
+  'order_saved_for_batch': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Narudžba je spremljena. Bit će poslana u zajedničkom mailu u {time}.',
+    AppLanguage.de:
+        'Die Bestellung wurde gespeichert. Sie wird gesammelt um {time} versendet.',
+  },
+  'order_cart_title': <AppLanguage, String>{
+    AppLanguage.hr: 'Košarica',
+    AppLanguage.de: 'Warenkorb',
+  },
+  'scan_barcode': <AppLanguage, String>{
+    AppLanguage.hr: 'Skeniraj barkod',
+    AppLanguage.de: 'Barcode scannen',
+  },
+  'barcode_scanner_title': <AppLanguage, String>{
+    AppLanguage.hr: 'Skeniraj artikl',
+    AppLanguage.de: 'Artikel scannen',
+  },
+  'barcode_scanner_hint': <AppLanguage, String>{
+    AppLanguage.hr: 'Usmjeri kameru prema barkodu artikla.',
+    AppLanguage.de: 'Richte die Kamera auf den Barcode des Artikels.',
+  },
+  'barcode_not_found': <AppLanguage, String>{
+    AppLanguage.hr: 'Nijedan materijal ne odgovara tom barkodu.',
+    AppLanguage.de: 'Kein Material passt zu diesem Barcode.',
+  },
+  'barcode_added_to_cart': <AppLanguage, String>{
+    AppLanguage.hr: 'Artikl je dodan u košaricu.',
+    AppLanguage.de: 'Artikel wurde dem Warenkorb hinzugefügt.',
+  },
+  'barcode_scanner_unavailable_web': <AppLanguage, String>{
+    AppLanguage.hr: 'Skeniranje barkoda radi samo u mobilnoj aplikaciji.',
+    AppLanguage.de: 'Barcode-Scannen funktioniert nur in der mobilen App.',
+  },
+  'order_cart_empty': <AppLanguage, String>{
+    AppLanguage.hr: 'Košarica je prazna.',
+    AppLanguage.de: 'Der Warenkorb ist leer.',
+  },
+  'tap_to_open': <AppLanguage, String>{
+    AppLanguage.hr: 'Dodirni za otvaranje',
+    AppLanguage.de: 'Zum Öffnen tippen',
+  },
+  'frequent_items_title': <AppLanguage, String>{
+    AppLanguage.hr: 'Često korištene stavke',
+    AppLanguage.de: 'Häufig verwendete Artikel',
+  },
+  'quick_add_title': <AppLanguage, String>{
+    AppLanguage.hr: 'Brzo dodavanje',
+    AppLanguage.de: 'Schnell hinzufügen',
+  },
+  'leave_order_title': <AppLanguage, String>{
+    AppLanguage.hr: 'Imate stavke u košarici',
+    AppLanguage.de: 'Es befinden sich Artikel im Warenkorb',
+  },
+  'leave_order_message': <AppLanguage, String>{
+    AppLanguage.hr: 'Jeste li sigurni da želite napustiti ekran?',
+    AppLanguage.de: 'Möchten Sie diesen Bildschirm wirklich verlassen?',
   },
   'select_building_error': <AppLanguage, String>{
     AppLanguage.hr: 'Odaberi zgradu za narudžbu robe.',
@@ -222,6 +370,14 @@ localizedStrings = <String, Map<AppLanguage, String>>{
   'ordered_by': <AppLanguage, String>{
     AppLanguage.hr: 'Naručio korisnik',
     AppLanguage.de: 'Bestellt von',
+  },
+  'article_number_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Artikelnummer',
+    AppLanguage.de: 'Artikelnummer',
+  },
+  'supplier_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Dobavljač',
+    AppLanguage.de: 'Lieferant',
   },
   'building': <AppLanguage, String>{
     AppLanguage.hr: 'Zgrada',
@@ -445,6 +601,14 @@ localizedStrings = <String, Map<AppLanguage, String>>{
     AppLanguage.hr: 'Dodaj korisnika',
     AppLanguage.de: 'Benutzer hinzufugen',
   },
+  'sync_users': <AppLanguage, String>{
+    AppLanguage.hr: 'Sinkroniziraj korisnike',
+    AppLanguage.de: 'Benutzer synchronisieren',
+  },
+  'sync_users_success': <AppLanguage, String>{
+    AppLanguage.hr: 'Postojeći korisnici su učitani iz Authenticationa.',
+    AppLanguage.de: 'Bestehende Benutzer wurden aus Authentication geladen.',
+  },
   'document_id': <AppLanguage, String>{
     AppLanguage.hr: 'ID dokumenta',
     AppLanguage.de: 'Dokument-ID',
@@ -453,9 +617,15 @@ localizedStrings = <String, Map<AppLanguage, String>>{
     AppLanguage.hr: 'Naziv',
     AppLanguage.de: 'Name',
   },
+  'yes': <AppLanguage, String>{AppLanguage.hr: 'Da', AppLanguage.de: 'Ja'},
+  'no': <AppLanguage, String>{AppLanguage.hr: 'Ne', AppLanguage.de: 'Nein'},
   'username_label': <AppLanguage, String>{
     AppLanguage.hr: 'Korisničko ime',
     AppLanguage.de: 'Benutzername',
+  },
+  'full_name_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Ime i prezime',
+    AppLanguage.de: 'Vor- und Nachname',
   },
   'role_label': <AppLanguage, String>{
     AppLanguage.hr: 'Rola',
@@ -468,6 +638,14 @@ localizedStrings = <String, Map<AppLanguage, String>>{
   'assigned_projects': <AppLanguage, String>{
     AppLanguage.hr: 'Dodijeljeni projekti',
     AppLanguage.de: 'Zugewiesene Projekte',
+  },
+  'project_task_roles_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Vrste posla po projektu',
+    AppLanguage.de: 'Arbeitsarten pro Projekt',
+  },
+  'no_task_roles_available': <AppLanguage, String>{
+    AppLanguage.hr: 'Za ovaj projekt još nema učitanih vrsta posla.',
+    AppLanguage.de: 'Für dieses Projekt sind noch keine Arbeitsarten geladen.',
   },
   'save': <AppLanguage, String>{
     AppLanguage.hr: 'Spremi',
@@ -485,6 +663,10 @@ localizedStrings = <String, Map<AppLanguage, String>>{
     AppLanguage.hr: 'Odaberi zgradu',
     AppLanguage.de: 'Gebaude auswahlen',
   },
+  'select_apartment': <AppLanguage, String>{
+    AppLanguage.hr: 'Odaberi stan',
+    AppLanguage.de: 'Wohnung auswahlen',
+  },
   'saved_successfully': <AppLanguage, String>{
     AppLanguage.hr: 'Uspješno spremljeno.',
     AppLanguage.de: 'Erfolgreich gespeichert.',
@@ -496,6 +678,80 @@ localizedStrings = <String, Map<AppLanguage, String>>{
   'assigned_workers': <AppLanguage, String>{
     AppLanguage.hr: 'Dodijeljeni radnici',
     AppLanguage.de: 'Zugewiesene Mitarbeiter',
+  },
+  'progress_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Dovršenost',
+    AppLanguage.de: 'Fortschritt',
+  },
+  'points_label': <AppLanguage, String>{
+    AppLanguage.hr: 'bodova',
+    AppLanguage.de: 'Punkte',
+  },
+  'no_work_tasks_for_apartment': <AppLanguage, String>{
+    AppLanguage.hr: 'Za ovaj stan još nema radnih zadataka.',
+    AppLanguage.de: 'Für diese Wohnung gibt es noch keine Arbeitsaufgaben.',
+  },
+  'no_assigned_work_tasks_for_apartment': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Za ovaj stan nema radnih zadataka dodijeljenih ovom radniku.',
+    AppLanguage.de:
+        'Für diese Wohnung sind diesem Mitarbeiter keine Arbeitsaufgaben zugewiesen.',
+  },
+  'open_register': <AppLanguage, String>{
+    AppLanguage.hr: 'Otvori registar',
+    AppLanguage.de: 'Register öffnen',
+  },
+  'completed_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Završio',
+    AppLanguage.de: 'Erledigt von',
+  },
+  'task_pending': <AppLanguage, String>{
+    AppLanguage.hr: 'Čeka izvršenje',
+    AppLanguage.de: 'Offen',
+  },
+  'complete_task': <AppLanguage, String>{
+    AppLanguage.hr: 'Označi gotovo',
+    AppLanguage.de: 'Als erledigt markieren',
+  },
+  'complete_task_confirm': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Jeste li sigurni da želite označiti ovaj zadatak kao gotov?',
+    AppLanguage.de:
+        'Möchtest du diese Aufgabe wirklich als erledigt markieren?',
+  },
+  'task_completed_success': <AppLanguage, String>{
+    AppLanguage.hr: 'Zadatak je označen kao gotov.',
+    AppLanguage.de: 'Die Aufgabe wurde als erledigt markiert.',
+  },
+  'task_already_completed': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Ovaj zadatak je već završio drugi radnik i više se ne može ponovno odraditi.',
+    AppLanguage.de:
+        'Diese Aufgabe wurde bereits von einem anderen Mitarbeiter abgeschlossen und kann nicht erneut erledigt werden.',
+  },
+  'task_complete_error': <AppLanguage, String>{
+    AppLanguage.hr: 'Zadatak se trenutno ne može završiti. Pokušaj ponovno.',
+    AppLanguage.de:
+        'Die Aufgabe kann momentan nicht abgeschlossen werden. Bitte erneut versuchen.',
+  },
+  'work_tasks_load_error': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Radni zadaci za ovaj stan trenutno se nisu učitali kako treba.',
+    AppLanguage.de:
+        'Die Arbeitsaufgaben für diese Wohnung konnten momentan nicht korrekt geladen werden.',
+  },
+  'refresh_and_try_again': <AppLanguage, String>{
+    AppLanguage.hr: 'Osvježi stranicu i pokušaj ponovno.',
+    AppLanguage.de: 'Bitte Seite aktualisieren und erneut versuchen.',
+  },
+  'saving_signature': <AppLanguage, String>{
+    AppLanguage.hr: 'Spremam potpis...',
+    AppLanguage.de: 'Unterschrift wird gespeichert...',
+  },
+  'signature_required_for_task': <AppLanguage, String>{
+    AppLanguage.hr: 'Potpis je obavezan prije završetka zadatka.',
+    AppLanguage.de:
+        'Eine Unterschrift ist erforderlich, bevor die Aufgabe abgeschlossen wird.',
   },
   'inactive': <AppLanguage, String>{
     AppLanguage.hr: 'Neaktivno',
@@ -516,6 +772,147 @@ localizedStrings = <String, Map<AppLanguage, String>>{
   'register_exports_tab': <AppLanguage, String>{
     AppLanguage.hr: 'Potpisi i izvoz',
     AppLanguage.de: 'Unterschriften und Export',
+  },
+  'orders_admin_tab': <AppLanguage, String>{
+    AppLanguage.hr: 'Narudžbe',
+    AppLanguage.de: 'Bestellungen',
+  },
+  'send_orders_now': <AppLanguage, String>{
+    AppLanguage.hr: 'Pošalji sve sada',
+    AppLanguage.de: 'Jetzt alles senden',
+  },
+  'send_orders_now_confirm': <AppLanguage, String>{
+    AppLanguage.hr: 'Želite li odmah poslati sve narudžbe na čekanju?',
+    AppLanguage.de:
+        'Möchtest du alle ausstehenden Bestellungen jetzt sofort senden?',
+  },
+  'send_orders_now_success': <AppLanguage, String>{
+    AppLanguage.hr: 'Narudžbe su poslane odmah.',
+    AppLanguage.de: 'Die Bestellungen wurden sofort versendet.',
+  },
+  'send_orders_now_empty': <AppLanguage, String>{
+    AppLanguage.hr: 'Nema narudžbi na čekanju za slanje.',
+    AppLanguage.de: 'Es gibt keine ausstehenden Bestellungen zum Senden.',
+  },
+  'send_orders_now_error': <AppLanguage, String>{
+    AppLanguage.hr: 'Narudžbe nije moguće odmah poslati.',
+    AppLanguage.de: 'Die Bestellungen konnten nicht sofort gesendet werden.',
+  },
+  'order_status_pending': <AppLanguage, String>{
+    AppLanguage.hr: 'Na čekanju',
+    AppLanguage.de: 'Ausstehend',
+  },
+  'order_status_sent': <AppLanguage, String>{
+    AppLanguage.hr: 'Poslano',
+    AppLanguage.de: 'Gesendet',
+  },
+  'all_statuses': <AppLanguage, String>{
+    AppLanguage.hr: 'Svi statusi',
+    AppLanguage.de: 'Alle Status',
+  },
+  'scheduled_slot': <AppLanguage, String>{
+    AppLanguage.hr: 'Termin slanja',
+    AppLanguage.de: 'Versandtermin',
+  },
+  'no_orders_found': <AppLanguage, String>{
+    AppLanguage.hr: 'Još nema spremljenih narudžbi.',
+    AppLanguage.de: 'Es gibt noch keine gespeicherten Bestellungen.',
+  },
+  'status_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Status',
+    AppLanguage.de: 'Status',
+  },
+  'created_at_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Kreirano',
+    AppLanguage.de: 'Erstellt',
+  },
+  'sent_at_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Poslano',
+    AppLanguage.de: 'Gesendet',
+  },
+  'ordered_by_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Poslao',
+    AppLanguage.de: 'Gesendet von',
+  },
+  'items_count_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Stavki',
+    AppLanguage.de: 'Positionen',
+  },
+  'assign_users_to_project': <AppLanguage, String>{
+    AppLanguage.hr: 'Dodaj korisnike na projekt',
+    AppLanguage.de: 'Benutzer dem Projekt zuweisen',
+  },
+  'active_workers': <AppLanguage, String>{
+    AppLanguage.hr: 'Aktivni radnici',
+    AppLanguage.de: 'Aktive Mitarbeiter',
+  },
+  'no_active_workers': <AppLanguage, String>{
+    AppLanguage.hr: 'Nema aktivnih radnika za dodjelu.',
+    AppLanguage.de: 'Keine aktiven Mitarbeiter zur Zuweisung vorhanden.',
+  },
+  'assigned_workers_count': <AppLanguage, String>{
+    AppLanguage.hr: 'Dodijeljeno radnika',
+    AppLanguage.de: 'Zugewiesene Mitarbeiter',
+  },
+  'shared_pdf_ready_title': <AppLanguage, String>{
+    AppLanguage.hr: 'PDF spreman za dodjelu',
+    AppLanguage.de: 'PDF zur Zuordnung bereit',
+  },
+  'shared_pdf_ready_message': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Otvorite projekt i stan, pa preko ikone dokumenta spremite podijeljeni PDF.',
+    AppLanguage.de:
+        'Projekt und Wohnung öffnen und die geteilte PDF über das Dokumentsymbol speichern.',
+  },
+  'attach_document': <AppLanguage, String>{
+    AppLanguage.hr: 'Dodaj dokument',
+    AppLanguage.de: 'Dokument hinzufügen',
+  },
+  'add_pdf': <AppLanguage, String>{
+    AppLanguage.hr: 'Dodaj PDF',
+    AppLanguage.de: 'PDF hinzufügen',
+  },
+  'apartment_documents': <AppLanguage, String>{
+    AppLanguage.hr: 'Dokumenti',
+    AppLanguage.de: 'Dokumente',
+  },
+  'no_documents': <AppLanguage, String>{
+    AppLanguage.hr: 'Još nema spremljenih dokumenata.',
+    AppLanguage.de: 'Es sind noch keine Dokumente gespeichert.',
+  },
+  'no_shared_pdfs': <AppLanguage, String>{
+    AppLanguage.hr: 'Trenutno nema podijeljenih PDF dokumenata.',
+    AppLanguage.de: 'Aktuell sind keine geteilten PDF-Dokumente vorhanden.',
+  },
+  'save_shared_documents': <AppLanguage, String>{
+    AppLanguage.hr: 'Spremi podijeljene dokumente',
+    AppLanguage.de: 'Geteilte Dokumente speichern',
+  },
+  'save_shared_documents_message': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Odabrani PDF dokumenti spremit će se na ovaj stan i bit će vidljivi u evidenciji.',
+    AppLanguage.de:
+        'Die ausgewählten PDF-Dokumente werden dieser Wohnung zugeordnet und in der Übersicht gespeichert.',
+  },
+  'documents_saved_success': <AppLanguage, String>{
+    AppLanguage.hr: 'Dokumenti su uspješno spremljeni.',
+    AppLanguage.de: 'Die Dokumente wurden erfolgreich gespeichert.',
+  },
+  'documents_saved_offline': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Dokumenti su spremljeni na uređaj. Kad se korisnik spoji na internet, bit će poslani na server.',
+    AppLanguage.de:
+        'Die Dokumente wurden auf dem Gerät gespeichert. Sobald wieder Internet verfügbar ist, werden sie an den Server gesendet.',
+  },
+  'documents_saved_partial': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Dio dokumenata je spremljen odmah, a ostali su spremljeni na uređaj i bit će poslani kad se korisnik spoji na internet.',
+    AppLanguage.de:
+        'Ein Teil der Dokumente wurde sofort gespeichert, die übrigen wurden auf dem Gerät gespeichert und werden gesendet, sobald wieder Internet verfügbar ist.',
+  },
+  'task_completed_via_import': <AppLanguage, String>{
+    AppLanguage.hr: 'Zadatak je označen kao napravljen kroz import.',
+    AppLanguage.de: 'Die Aufgabe wurde durch den Import als erledigt markiert.',
   },
   'copy_csv': <AppLanguage, String>{
     AppLanguage.hr: 'Kopiraj CSV',
@@ -549,6 +946,10 @@ localizedStrings = <String, Map<AppLanguage, String>>{
     AppLanguage.hr: 'Preuzmi Excel',
     AppLanguage.de: 'Excel herunterladen',
   },
+  'export_project_status_tooltip': <AppLanguage, String>{
+    AppLanguage.hr: 'Izvezi status projekta',
+    AppLanguage.de: 'Projektstatus exportieren',
+  },
   'excel_download_ready': <AppLanguage, String>{
     AppLanguage.hr: 'Excel izvoz je pripremljen.',
     AppLanguage.de: 'Der Excel-Export ist fertig.',
@@ -576,6 +977,10 @@ localizedStrings = <String, Map<AppLanguage, String>>{
   'role_site_manager': <AppLanguage, String>{
     AppLanguage.hr: 'voditelj gradilišta',
     AppLanguage.de: 'Bauleiter',
+  },
+  'role_obermonteur': <AppLanguage, String>{
+    AppLanguage.hr: 'nadmonter',
+    AppLanguage.de: 'Obermonteur',
   },
   'role_admin': <AppLanguage, String>{
     AppLanguage.hr: 'admin',
@@ -629,11 +1034,33 @@ localizedStrings = <String, Map<AppLanguage, String>>{
     AppLanguage.hr: 'Import podataka',
     AppLanguage.de: 'Datenimport',
   },
+  'import_mode_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Način importa',
+    AppLanguage.de: 'Importmodus',
+  },
+  'import_mode_new_project': <AppLanguage, String>{
+    AppLanguage.hr: 'Novi projekt',
+    AppLanguage.de: 'Neues Projekt',
+  },
+  'import_mode_sync_project': <AppLanguage, String>{
+    AppLanguage.hr: 'Usklada postojećeg projekta',
+    AppLanguage.de: 'Bestehendes Projekt abgleichen',
+  },
+  'select_existing_project': <AppLanguage, String>{
+    AppLanguage.hr: 'Odaberi postojeći projekt',
+    AppLanguage.de: 'Bestehendes Projekt auswählen',
+  },
+  'import_sync_hint': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Kod usklade se koristi odabrani projekt iz aplikacije, a tablica određuje koje zgrade, stanovi i zadaci ostaju aktivni.',
+    AppLanguage.de:
+        'Beim Abgleich wird das ausgewählte Projekt aus der App verwendet, und die Tabelle bestimmt, welche Gebäude, Wohnungen und Aufgaben aktiv bleiben.',
+  },
   'import_structure_hint': <AppLanguage, String>{
     AppLanguage.hr:
-        'Zalijepi retke iz Excela ili LibreOfficea u stupcima: projekt, zgrada, stan, radnici, tip checkliste. Radnike odvoji znakom ;, a tip neka bude Medientrager, Strang ili Strang+Seiten.',
+        'Učitaj .xlsx radnu tablicu. Listovi su zgrade, red 4 je vrsta posla, red 5 podvrsta, stupac B je stan. Za Register ćelije upiši tip checkliste (Medientrager, Strang ili Strang+Seiten), a ostali poslovi se učitavaju samo gdje je ćelija TRUE ili kvačica.',
     AppLanguage.de:
-        'Zeilen aus Excel oder LibreOffice in den Spalten Projekt, Gebäude, Wohnung, Mitarbeiter, Checklisten-Typ einfügen. Mitarbeiter mit ; trennen. Für den Typ Medientrager, Strang oder Strang+Seiten verwenden.',
+        'Lade die .xlsx-Arbeitstabelle hoch. Die Blätter sind Gebäude, Zeile 4 ist die Arbeitsart, Zeile 5 die Unterart, Spalte B ist die Wohnung. Für Register-Zellen den Checklisten-Typ eintragen (Medientrager, Strang oder Strang+Seiten), andere Arbeiten werden nur dort importiert, wo TRUE oder ein Häkchen steht.',
   },
   'paste_table': <AppLanguage, String>{
     AppLanguage.hr: 'Zalijepi tablicu',
@@ -664,10 +1091,70 @@ localizedStrings = <String, Map<AppLanguage, String>>{
     AppLanguage.de: 'Datei wurde in den Import geladen.',
   },
   'file_import_not_supported': <AppLanguage, String>{
-    AppLanguage.hr:
-        'Podržani su .xlsx i .csv. Za .ods koristi copy/paste iz tablice.',
+    AppLanguage.hr: 'Podržan je .xlsx import radne tablice.',
+    AppLanguage.de: 'Unterstützt wird der .xlsx-Import der Arbeitstabelle.',
+  },
+  'import_preview': <AppLanguage, String>{
+    AppLanguage.hr: 'Pregled importa',
+    AppLanguage.de: 'Importvorschau',
+  },
+  'selected_file': <AppLanguage, String>{
+    AppLanguage.hr: 'Datoteka',
+    AppLanguage.de: 'Datei',
+  },
+  'apartments_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Stanovi',
+    AppLanguage.de: 'Wohnungen',
+  },
+  'work_tasks_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Radni zadaci',
+    AppLanguage.de: 'Arbeitsaufgaben',
+  },
+  'skipped_entries': <AppLanguage, String>{
+    AppLanguage.hr: 'Preskočeno',
+    AppLanguage.de: 'Übersprungen',
+  },
+  'import_permission_denied': <AppLanguage, String>{
+    AppLanguage.hr: 'Voditelj gradilišta može uvoziti samo svoje projekte.',
     AppLanguage.de:
-        'Unterstützt werden .xlsx und .csv. Für .ods bitte Tabelle kopieren und einfügen.',
+        'Der Bauleiter darf nur seine eigenen Projekte importieren.',
+  },
+  'import_project_required': <AppLanguage, String>{
+    AppLanguage.hr: 'Potrebno je odabrati projekt za usklađivanje.',
+    AppLanguage.de: 'Für den Abgleich muss ein Projekt ausgewählt werden.',
+  },
+  'project_material_import_title': <AppLanguage, String>{
+    AppLanguage.hr: 'Import materijala za projekt',
+    AppLanguage.de: 'Materialimport fur das Projekt',
+  },
+  'project_material_import_hint': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Učitaj .xlsx listu materijala samo za ovo gradilište. Globalna lista ostaje netaknuta, a projektna lista zamjenjuje postojeću listu tog projekta.',
+    AppLanguage.de:
+        'Lade eine .xlsx-Materialliste nur fur diese Baustelle hoch. Die globale Liste bleibt erhalten, die Projektliste ersetzt die bisherige Liste dieses Projekts.',
+  },
+  'project_material_import_not_supported': <AppLanguage, String>{
+    AppLanguage.hr: 'Podržan je samo .xlsx import liste materijala.',
+    AppLanguage.de: 'Unterstutzt wird nur der .xlsx-Import der Materialliste.',
+  },
+  'project_material_import_replace_warning': <AppLanguage, String>{
+    AppLanguage.hr:
+        'Nova lista će zamijeniti postojeće projektne materijale za ovo gradilište.',
+    AppLanguage.de:
+        'Die neue Liste ersetzt die bisherigen Projektmaterialien fur diese Baustelle.',
+  },
+  'project_material_import_success': <AppLanguage, String>{
+    AppLanguage.hr: 'Uvezeno je {count} materijala za projekt {project}.',
+    AppLanguage.de:
+        'Es wurden {count} Materialien fur das Projekt {project} importiert.',
+  },
+  'import_project_materials_tooltip': <AppLanguage, String>{
+    AppLanguage.hr: 'Učitaj materijale za projekt',
+    AppLanguage.de: 'Projektmaterialien importieren',
+  },
+  'categories_label': <AppLanguage, String>{
+    AppLanguage.hr: 'Kategorije',
+    AppLanguage.de: 'Kategorien',
   },
   'register_saved_offline_title': <AppLanguage, String>{
     AppLanguage.hr: 'Spremljeno offline',
@@ -683,7 +1170,9 @@ localizedStrings = <String, Map<AppLanguage, String>>{
 
 String tr(BuildContext context, String key) {
   final language = LanguageScope.of(context);
-  return localizedStrings[key]?[language] ?? key;
+  return localizedStrings[key]?[language] ??
+      localizedStrings[key]?[AppLanguage.hr] ??
+      key;
 }
 
 Future<void> loadSavedLanguage() async {
@@ -695,15 +1184,20 @@ Future<void> loadSavedLanguage() async {
     return;
   }
 
+  if (savedLanguage == 'en') {
+    languageNotifier.value = AppLanguage.en;
+    return;
+  }
+
   languageNotifier.value = AppLanguage.hr;
 }
 
 Future<void> setAppLanguage(AppLanguage language) async {
   languageNotifier.value = language;
   final prefs = await SharedPreferences.getInstance();
-  await prefs.setString(
-    languagePreferenceKey,
-    language == AppLanguage.de ? 'de' : 'hr',
-  );
+  await prefs.setString(languagePreferenceKey, switch (language) {
+    AppLanguage.hr => 'hr',
+    AppLanguage.de => 'de',
+    AppLanguage.en => 'en',
+  });
 }
-
